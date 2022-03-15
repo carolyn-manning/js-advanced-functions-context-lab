@@ -1,13 +1,68 @@
-/* Your Code Here */
+function createEmployeeRecord(arr) {
+    return {
+        firstName: arr[0],
+        familyName: arr[1],
+        title: arr[2],
+        payPerHour: arr[3],
+        timeInEvents: [],
+        timeOutEvents: []
+    }
+}
 
-/*
- We're giving you this function. Take a look at it, you might see some usage
- that's new and different. That's because we're avoiding a well-known, but
- sneaky bug that we'll cover in the next few lessons!
+function createEmployeeRecords(arrs) {
+   return arrs.map(arr => {
+       return createEmployeeRecord(arr)
+    })  
+}
 
- As a result, the lessons for this function will pass *and* it will be available
- for you to use if you need it!
- */
+function createTimeInEvent(dateTime) {
+    let [date, time] = dateTime.split(' ')
+    this.timeInEvents.push({
+        type: "TimeIn",
+        hour: parseInt(time, 10),
+        date: date
+    })
+    return this
+}
+
+function createTimeOutEvent(dateTime) {
+    let [date, time] = dateTime.split(' ')
+    this.timeOutEvents.push({
+        type: "TimeOut",
+        hour: parseInt(time, 10),
+        date: date
+    })
+    return this
+}
+
+function hoursWorkedOnDate(date){
+    let inEvent = this.timeInEvents.find(function(e){
+        return e.date === date
+    })
+
+    let outEvent = this.timeOutEvents.find(function(e){
+        return e.date === date
+    })
+
+    return (outEvent.hour - inEvent.hour) / 100
+}
+
+function wagesEarnedOnDate(date){
+    let wage = hoursWorkedOnDate.call(this, date)
+        * this.payPerHour
+    return wage
+}
+function findEmployeeByFirstName(array, firstName) {
+    return array.find(function(record){
+      return record.firstName === firstName
+    })
+  }
+
+  function calculatePayroll(arr){
+    return arr.reduce(function(memo, rec){
+        return memo + allWagesFor.call(rec)
+    }, 0)
+}
 
 let allWagesFor = function () {
     let eligibleDates = this.timeInEvents.map(function (e) {
